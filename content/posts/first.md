@@ -1,7 +1,7 @@
 ---
 title: "First Post"
 date: 2020-10-16T16:21:41+02:00
-draft: true
+draft: false
 categories: General
 tags: [javascript, todo]
 comment: true
