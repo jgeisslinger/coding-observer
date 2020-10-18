@@ -1,4 +1,4 @@
-baseURL = "https://coding-observer.vercel.app"
+baseURL = "https://coding.observer"
 languageCode = "en-us"
 title = "Coding.Observer"
 theme = "noteworthy"
@@ -25,14 +25,19 @@ disqusShortname = ""
 [params]
 	math = true
 	# Blog description at the top of the homepage. Supports markdown.
-	description = "Blog to spread programming snippets and all other tech I observed"
-    title = "Test"
+	description = ""
+    title = "Coding Observer Blog"
 
-    showReadMore = false
+    showReadMore = true
 
     # Set enableKofi to true to enable the Ko-fi support button. Add your Ko-fi ID to link to your account.
     enableKofi = true
     kofi = "I2I12FSW2"
+
+    #Set FontAweome and enter your Kit ID
+    enableFontAwesome = true
+    fontawesome = "0dcacf6ba0"
+
 
 	# Add links to your accounts. Remove the ones you don't want to include.
 	# Main
@@ -44,7 +49,7 @@ disqusShortname = ""
 # Menu links along the sidebar navigation.
 [[menu.main]]
 	identifier = "about"
-	name = "{ thats me }"
+	name = "{ About me }"
 	url = "/about/"
 	weight = 1 
 
