@@ -25,18 +25,21 @@ disqusShortname = ""
 [params]
 	math = true
 	# Blog description at the top of the homepage. Supports markdown.
-	description = ""
-    title = "Coding Observer Blog"
+	description = "Personal blog about coding, tech and misc"
+  title = "Coding Observer Blog"
 
-    showReadMore = true
+  showReadMore = true
 
     # Set enableKofi to true to enable the Ko-fi support button. Add your Ko-fi ID to link to your account.
-    enableKofi = true
-    kofi = "I2I12FSW2"
+  enableKofi = true
+  kofi = "I2I12FSW2"
 
     #Set FontAweome and enter your Kit ID
-    enableFontAwesome = true
-    fontawesome = "0dcacf6ba0"
+  enableFontAwesome = true
+  fontawesome = "0dcacf6ba0"
+
+  talkyardServerUrl = "https://comments-for-coding-observer.talkyard.net"
+  talkyardScriptUrl = "https://c1.ty-cdn.net/-/talkyard-comments.min.js"
 
 
 	# Add links to your accounts. Remove the ones you don't want to include.
@@ -48,16 +51,31 @@ disqusShortname = ""
 
 # Menu links along the sidebar navigation.
 [[menu.main]]
-	identifier = "about"
-	name = "{ About me }"
-	url = "/about/"
+	identifier = "home"
+	name = "Home"
+	url = "/"
 	weight = 1 
 
 [[menu.main]]
+	identifier = "about"
+	name = "About me"
+	url = "/about/"
+	weight = 2 
+
+[[menu.main]]
 	identifier = "archives"
-	name = "[ Archives ]"
+	name = "Archives"
 	url = "/archives/"
-	weight = 2
+	weight = 3
+
+[[menu.main]]
+	identifier = "Legal"
+	name = "Legal"
+	url = "/legal/"
+	weight = 4
+
+[outputs]
+  home = ["HTML", "RSS", "JSON"]
 
 # Privacy configurations: https://gohugo.io/about/hugo-and-gdpr/
 [privacy]
