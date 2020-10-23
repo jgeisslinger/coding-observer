@@ -44,10 +44,10 @@ disqusShortname = ""
 
 	# Add links to your accounts. Remove the ones you don't want to include.
 	# Main
-	email = "#"
-    twitter = "#"
-    github = "#"
-	stackoverflow = "#"
+	email = "jo@coding.observer"
+  twitter = "https://twitter.com/b1cKberry"
+  github = "https://github.com/jgeisslinger"
+	stackoverflow = "https://stackoverflow.com/users/13843402/jayde"
 
 # Menu links along the sidebar navigation.
 [[menu.main]]
