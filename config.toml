@@ -63,12 +63,6 @@ disqusShortname = ""
 	weight = 2 
 
 [[menu.main]]
-	identifier = "archives"
-	name = "Archives"
-	url = "/archives/"
-	weight = 3
-
-[[menu.main]]
 	identifier = "Legal"
 	name = "Legal"
 	url = "/legal/"
