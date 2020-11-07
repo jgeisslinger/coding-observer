@@ -9,14 +9,22 @@
 
 	{{ if .Site.Params.enableKofi }}
 
-	<script type='text/javascript' src='https://ko-fi.com/widgets/widget_2.js'></script>
-	<script type='text/javascript'>
+	< type='text/javascript' src='https://ko-fi.com/widgets/widget_2.js'></>
+	< type='text/javascript'>
 		const kofiId = '{{ .Site.Params.Kofi }}';
 		kofiwidget2.init('Tip a Coffee', '#898989', kofiId);
 		kofiwidget2.draw();
-	</script>
+	</>
 
 	{{ end }}
+
+	<!-- script tag -->
+	<script src="https://cdn.jsdelivr.net/npm/prismjs@1.20.0/prism.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/prismjs@1.20.0/plugins/line-numbers/prism-line-numbers.min.js"></script>
+
+	<!-- All individual language files -->
+	<script src="https://cdn.jsdelivr.net/npm/prismjs@1.20.0/components/prism-dax.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/prismjs@1.20.0/components/prism-powerquery.min.js"></script>
 
 	{{ $script := resources.Get "js/main.js" | minify | fingerprint -}}
 	<script src="{{ $script.Permalink }}" {{ printf "integrity=%q" $script.Data.Integrity | safeHTMLAttr }}
