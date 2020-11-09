@@ -1,7 +1,7 @@
 ---
-title: "Creating PowerBI RLS Rules"
+title: "Dynamic PowerBI RLS Rules"
 date: 2020-11-07T10:26:20+01:00
-draft: true
+draft: false
 comment: true
 categories: "Javascript"
 tags: [microsoft, PowerBI, RLS, PowerToos, Security, Data, Reporting]
@@ -23,50 +23,50 @@ In larger companies it is mandatory to think about rules and rights in terms of 
 
 Good to know that **PowerBI** has included a feature called **RLS** (Row Level Security) to manage access to certain data points.
 
-The RLS is restricting the data what users can see on row level by matching an expression with a user input. Normally this is pretty straight forward. But what if you not only have one attribute limiting the access of the users to the database? 
+The RLS is restricting the data what users can see on row level by matching an role expression with a user input. Normally this is pretty straight forward. But what if you not only have one attribute limiting the access of the users to the report? In general speaking you could create multiple roles for each scenario that your users need (e.g. role for US sales, one role for German sales etc.). But this would easily blow up the complete role management even in small reports. And what if a user need much more precise access to only one plant, one company, one site? An more efficient way to manage this is using just one role but limiting the access with **coding**!
 
 ## Setting up sample Data
 
 For our example I have set up some sample data in a PowerBI file (the example file could be downloaded at the end of the tutorial). 
 
-We create three sample tables: "RLS User", "Company" and "Sales". Each of the tables hold different columns.
+I create three sample tables: "RLS User", "Company" and "Sales". Each of the tables hold different columns.
 
 ![Sample Data](https://s3.eu-central-1.wasabisys.com/gwce.public/blog/PowerBI-RLS-Rules-2020-10/image001.png)
 
-This is of course only a simple example but the logic of RLS could be extended to way bigger database models without any issue. 
+This is of course only a simple example but the logic could be extended to way complex data models without any issue. 
 
-You might wondering about the table called "RLS User". This table is specific created for the purpose of RLS feature and is normally not included in your raw datamodel. In the simplest way this table holds a username as "RLS User" and an attribute that is allowed to be accessed. 
+You might wondering about the table called "RLS User". This table is specific created for the logic we want to build and is normally not included in your raw data model. In the simplest way this table holds a username as "RLS User" and an attribute that is allowed to be accessed (e.g. company name)
 
-> **Remember**: If you use PowerBI Web with Office 365 the "username" should always the login principle name of the users of your company e.g. id@company.de
+> **Remember**: If you use PowerBI with Office 365 the "username" should always the login principal name of the users of your company which is normally id@company.de
 
 In our example we have the users "test" and "test2" and want to give them access to "Company1" and in case of "test2" only country "Germany" and for "test" only country "USA".
 
 ![Data](https://s3.eu-central-1.wasabisys.com/gwce.public/blog/PowerBI-RLS-Rules-2020-10/image002.png)
 
-This basic scenario is very common in reality. Imagen different sales managers should only see turnover or sales in specific countries AND for specific sales orgs.
+This basic scenario is very common in reality. Imagin different sales managers should only see the turnover or sales in specific countries AND for specific sales orgs.
 
 ## Setting up the rules
 
-But how we are not limiting the users based on the RLS table we created? For that we are using the build in roles manager of PowerBI Desktop.
+But how we are limiting the users based on the RLS table we just created? For that we are using the build in **roles manager** of PowerBI Desktop.
 
 ![Access Role Manager](https://s3.eu-central-1.wasabisys.com/gwce.public/blog/PowerBI-RLS-Rules-2020-10/image003.png)
 
-On the modeling tab we find the "Manage roles" tab. This is our main window to configure the access rules to our data.
+On the Modeling tab we find the "Manage roles" tab. This is our main window to configure the access rules to our data.
 
 ![Manage roles](https://s3.eu-central-1.wasabisys.com/gwce.public/blog/PowerBI-RLS-Rules-2020-10/image004.png)
 
-Once open we can click on "Create" to create a new Role and name it "RLS". After we created the role we may observe that the manager automatically pulls all tables that are currently loaded into the data model of our PowerBI file (if we load more later, they are added here).
+Once open, we can click on "Create" to create a new Role and name it "RLS". After we created the role we may observe that the manager automatically pulls all tables that are currently loaded into the data model of our PowerBI file (if we load more later, they are added here).
 
 ## Writing the rule set
 ### Filter User Table
-The first rule we insert in our data model is to filter out the "RLS User" table based on the login of the current user. Example: If we publish our Report to PowerBI Web Services and the user "test" opens the report, our rule will filter the table based on his userid.
+The first rule we insert in our data model is to filter out the "RLS User" table based on the login of the current user. Example: If we publish our Report to PowerBI Web Services and the user "test" opens the report, our rule will filter the table based on his/her userid.
 
-To to this we are just using the following DAX (Data Analytics Expression) code:
+To do this we are just using the following DAX (Data Analytics Expression) code:
 
 ```dax
 [RLS User] = UserPrincipleName()
 ```
-and in PowerBI it will look like this:
+and in PowerBI it will look like:
 
 ![Manage roles](https://s3.eu-central-1.wasabisys.com/gwce.public/blog/PowerBI-RLS-Rules-2020-10/image005.png)
 
@@ -74,7 +74,7 @@ This is one of the important steps as the userid cannot be manipulated while acc
 
 
 ### Filter data tables
-To filter the data tables we must apply a more complex rule. This is because we want to filter the data from two different tables (Company AND Sales). To do this we use the following code:
+To now filter the data tables we must apply a more complex rule. This is because we want to **dynamically** filter the data from two different tables (Company AND Sales) based on the current user. To do this we use the following code:
 
 ```dax
 [Company]
@@ -132,14 +132,20 @@ Confirming our selection and coming back to the data we can observe that our dat
 ![Filtered data](https://s3.eu-central-1.wasabisys.com/gwce.public/blog/PowerBI-RLS-Rules-2020-10/image010.png)
 
 ## Last Steps
-Now we created a working rule set in our PowerBI file and we are ready to publish it to the cloud services. If we would do and also give users access to the report (yes, you still have to share the report with the users) they would face an empty report. But why? The answer is Microsoft. The current logic is that you are creating rule sets in your desktop version but you have to assign user to the roles in the web version before they can use it.
+Now we created a working rule set in our PowerBI file and we are ready to publish it to the cloud services. If we would do and also give users access to the report (yes, you still have to share the report with the users) they would face an empty report. But why? The answer is Microsoft. The current logic is that you are creating rule sets in your desktop version but you have to assign user to the roles in the web version before they can use it so that PowerBI knows which rule set to apply.
 
 To do this just publish your report and login to the web portal. Go to your workspace and select the dataset you just published. 
 
-Click on the 
+![Security data](https://s3.eu-central-1.wasabisys.com/gwce.public/blog/PowerBI-RLS-Rules-2020-10/image011.png)
 
 
-So we succesfull implemented **ROW LEVEL SECURTY** in our data model.
+Click on the three dots at your dataset and click on "Security" to enter the RLS section.
+
+![Security data](https://s3.eu-central-1.wasabisys.com/gwce.public/blog/PowerBI-RLS-Rules-2020-10/image012.png)
+
+Here you must add all users that should be assigned to the RLS role. You can also add distribution lists of your company so that you dont have to add or remove new users manually. To make it perfect you can then just share the report with all users as they will not access any data unless they are within this RLS role.
+
+So we now succesfully implemented **ROW LEVEL SECURTY** in our data model.
 
 ## Conclusion
 
