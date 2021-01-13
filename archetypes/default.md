@@ -8,7 +8,7 @@ tags: []
 Javascript: false
 NodeJS: false
 PowerApp: false
-Tech: false
+Network: false
 Misc: false
 discussionId:
 ---

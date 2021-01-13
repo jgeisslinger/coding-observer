@@ -1,20 +1,13 @@
 <footer class="footer-mobile">
 	{{ partial "social.html" . }}
 
-	<p class="note">
-		You can also send us an encrypted mail.<br />
-		PGP <br />
-		S/MIME .
-	</p>
 
 	{{ if .Site.Params.enableKofi }}
 
-	< type='text/javascript' src='https://ko-fi.com/widgets/widget_2.js'></>
-	< type='text/javascript'>
-		const kofiId = '{{ .Site.Params.Kofi }}';
-		kofiwidget2.init('Tip a Coffee', '#898989', kofiId);
-		kofiwidget2.draw();
-	</>
+	<script type='text/javascript' src='https://ko-fi.com/widgets/widget_2.js'></script>
+	<script
+		type='text/javascript'>kofiwidget2.init('Buy me a Coffee', '#a8a8a8', '{{ .Site.Params.Kofi }}'); kofiwidget2.draw();</script>
+
 
 	{{ end }}
 
@@ -29,4 +22,9 @@
 	{{ $script := resources.Get "js/main.js" | minify | fingerprint -}}
 	<script src="{{ $script.Permalink }}" {{ printf "integrity=%q" $script.Data.Integrity | safeHTMLAttr }}
 		crossorigin="anonymous"></script>
+	<br /><br />
+	<div class="ml-form-embed" data-account="2781907:j1p2f8n4c1" data-form="3349426:o0z0a6">
+	</div>
+
+
 </footer>

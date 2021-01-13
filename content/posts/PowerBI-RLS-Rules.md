@@ -15,7 +15,7 @@ discussionId: PowerBI-RLS-Rules-2020-10
 
 Hello Observers,
 
-as you might know I am working for a big company and I am, among ohters, responsible for reporting. In this role I am developing **PowerBI** dashboards and reports for the whole organization. One specific question to be solved is data security and access rules. I just want to share some insights and a quick tutorial how to setup a simple rule set with multiple tables.
+as you might know I am working for a big company and I am also responsible for reporting. In this role I am developing **PowerBI** dashboards and reports for the whole organization. One specific question to be solved is data security and access rules. I just want to share some insights and a quick tutorial how to setup a simple rule set with multiple tables.
 
 ## General
 
